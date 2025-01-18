@@ -1,0 +1,193 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: rgba(45, 45, 45, 0.9);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.game-title h1 {
+    color: #00ff00;
+    font-size: 2.5rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.typing-animation {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.typing-animation .letter {
+    color: #00ff00;
+    font-size: 1.8rem;
+    font-weight: bold;
+    animation: typingAnimation 1s infinite;
+}
+
+.typing-animation .letter:nth-child(2) { animation-delay: 0.2s; }
+.typing-animation .letter:nth-child(3) { animation-delay: 0.4s; }
+.typing-animation .letter:nth-child(4) { animation-delay: 0.6s; }
+
+.flash-message {
+    background-color: #ff3333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    text-align: center;
+    animation: slideIn 0.3s ease-out;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.tab-button.active {
+    background-color: #00ff00;
+    color: #000;
+    font-weight: bold;
+}
+
+.tab-button:hover:not(.active) {
+    background-color: #444;
+}
+
+.auth-forms {
+    position: relative;
+}
+
+.auth-form {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+.form-group input {
+    width: 100%;
+    margin-left: 18px;
+    padding: 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid #444;
+    border-radius: 8px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #00ff00;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    left: 30px;
+    top: 45%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #00ff00;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.submit-button:hover {
+    background-color: #00cc00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+}
+
+@keyframes typingAnimation {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 10px;
+    }
+
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .game-title h1 {
+        font-size: 2rem;
+    }
+
+    .typing-animation .letter {
+        font-size: 1.5rem;
+    }
+} 

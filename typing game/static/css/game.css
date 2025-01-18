@@ -1,0 +1,369 @@
+/* static/css/game.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #333;
+}
+
+.game-header h1 {
+    font-size: 2.5rem;
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.username {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.logout-button {
+    background-color: #ff3333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+.section-title {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.mode-card {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid #333;
+}
+
+.mode-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.1);
+}
+
+.mode-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.mode-card h3 {
+    color: #00ff00;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.mode-card p {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.play-button, .create-game-button, .join-button {
+    display: inline-block;
+    background-color: #00ff00;
+    color: #000;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.play-button:hover, .create-game-button:hover, .join-button:hover {
+    background-color: #00cc00;
+    transform: scale(1.05);
+}
+
+.multiplayer-container {
+    background-color: #2a2a2a;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+
+.multiplayer-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.join-game-section {
+    margin-top: 1rem;
+}
+
+.join-form {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.join-form input {
+    flex: 1;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+}
+
+.active-games-list {
+    margin-top: 1.5rem;
+}
+
+.game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.active-game-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.quick-join-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quick-join-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+}
+
+.multiplayer-card {
+    background-color: #2a2a2a;
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid #333;
+}
+
+.mode-icon.trophy {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    animation: trophy-shine 2s infinite;
+}
+
+.multiplayer-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.create-game-button {
+    display: inline-block;
+    background-color: #00ff00;
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-left: -30px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.create-game-button:hover {
+    background-color: #00cc00;
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.join-game-section {
+    margin-top: 1rem;
+}
+
+.join-form {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.join-form input {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 2px solid #444;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.join-form input:focus {
+    border-color: #00ff00;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.join-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.join-button:hover {
+    background-color: #45a049;
+    transform: scale(1.02);
+}
+
+.multiplayer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-button:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+}
+
+@keyframes trophy-shine {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .game-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .mode-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .join-form {
+        flex-direction: column;
+    }
+
+    .main-nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .multiplayer-controls {
+        gap: 1.5rem;
+    }
+
+    .join-form {
+        flex-direction: column;
+    }
+
+    .multiplayer-nav {
+        flex-direction: column;
+    }
+
+    .nav-button {
+        width: 100%;
+    }
+}

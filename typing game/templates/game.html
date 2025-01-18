@@ -1,0 +1,191 @@
+<!-- templates/game.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Typing Game - {{ mode|title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-screen.css') }}">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <div class="header-left">
+                <h1>Speed Typing</h1>
+                <div class="game-mode">{{ mode|title }} Mode</div>
+            </div>
+            <div class="user-controls">
+                <span class="username">{{ session['username'] }}</span>
+                <a href="{{ url_for('game_modes') }}" class="nav-button">Change Mode</a>
+                <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+            </div>
+        </header>
+
+        <div class="game-stats">
+            <div class="stat-card wpm">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value">{{ wpm }}</div>
+                <div class="stat-label">WPM</div>
+            </div>
+            <div class="stat-card accuracy">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value">{{ accuracy }}%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-card words">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value">{{ words_left }}</div>
+                <div class="stat-label">Words Left</div>
+            </div>
+            {% if time_left is not none %}
+            <div class="stat-card time">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value">{{ time_left }}s</div>
+                <div class="stat-label">Time Left</div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="typing-area">
+            <div class="word-display">
+                <div class="word-text">{{ current_word }}</div>
+                <div class="word-hint">Type this word</div>
+            </div>
+
+            <form action="{{ url_for('submit_word') }}" method="post" class="typing-form">
+                <input type="hidden" name="game_id"  value="{{ game_id }}">
+                <div class="input-wrapper">
+                    <input type="text" 
+                           name="typed_word" 
+                           class="typing-input" 
+                           autocomplete="off" 
+                           autofocus 
+                           required
+                           placeholder="Type here...">
+                    <button type="submit" class="submit-button">
+                        <span class="button-text">Submit</span>
+                        <span class="button-icon">⌨️</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if mode == 'multiplayer' %}
+        <div class="multiplayer-status">
+            <h3>Players</h3>
+            <div class="player-list">
+                {% for player in players %}
+                <div class="player-card">
+                    <span class="player-name">{{ player.username }}</span>
+                    <span class="player-wpm">{{ player.wpm }} WPM</span>
+                    <span class="player-progress">{{ player.progress }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeElement = document.querySelector('.time .stat-value');
+            const form = document.querySelector('.typing-form');
+            const input = document.querySelector('.typing-input');
+            let timeLeft = timeElement ? parseInt(timeElement.textContent) : null;
+            let isGameOver = false; // Add game over flag
+            
+            function updateTimer() {
+                if (!isGameOver && timeLeft > 0) {
+                    timeLeft--;
+                    timeElement.textContent = timeLeft + 's';
+                    
+                    if (timeLeft <= 10) {
+                        timeElement.style.color = '#ff3333';
+                        timeElement.style.animation = 'pulse 1s infinite';
+                    }
+                    
+                    setTimeout(updateTimer, 1000);
+                } else if (timeLeft === 0 && !isGameOver) {
+                    isGameOver = true;
+                    form.submit();
+                }
+            }
+            
+            // Start the timer if it exists
+            if (timeElement) {
+                updateTimer();
+            }
+
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (isGameOver) {
+                    return; // Prevent further submissions if game is over
+                }
+                
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.game_over) {
+                        isGameOver = true;
+                        // Redirect to game over screen
+                        window.location.href = data.redirect_url;
+                        return;
+                    }
+                    
+                    // Update game state
+                    document.querySelector('.word-text').textContent = data.current_word;
+                    document.querySelector('.wpm .stat-value').textContent = data.wpm;
+                    document.querySelector('.accuracy .stat-value').textContent = data.accuracy + '%';
+                    document.querySelector('.words .stat-value').textContent = data.words_left;
+                    
+                    // Update timer if provided
+                    if (data.time_left !== undefined) {
+                        timeLeft = data.time_left;
+                        timeElement.textContent = timeLeft + 's';
+                        timeElement.style.color = timeLeft <= 10 ? '#ff3333' : '';
+                        timeElement.style.animation = timeLeft <= 10 ? 'pulse 1s infinite' : '';
+                    }
+                    
+                    // Clear input and focus
+                    input.value = '';
+                    input.focus();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    if (isGameOver) {
+                        // If game is over, redirect to game over screen
+                        form.submit();
+                    }
+                });
+            });
+
+            // Add keyboard shortcut for form submission
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !isGameOver) {
+                    e.preventDefault();
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+
+            // Ensure input is focused on page load
+            input.focus();
+        });
+    </script>
+</body>
+</html>

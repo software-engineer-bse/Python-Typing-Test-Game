@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboards - Speed Typing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+</head>
+<body>
+    <div class="leaderboard-container">
+        <header class="leaderboard-header">
+            <h1>Global Leaderboards</h1>
+            <div class="user-info">
+                <span class="username">{{ session['username'] }}</span>
+                <a href="{{ url_for('game_modes') }}" class="nav-button">Back to Game</a>
+            </div>
+        </header>
+
+        <div class="leaderboard-tabs">
+            <button class="tab-button active" data-tab="wpm">Best WPM</button>
+            <button class="tab-button" data-tab="accuracy">Best Accuracy</button>
+            <button class="tab-button" data-tab="multiplayer">Multiplayer Wins</button>
+        </div>
+
+        <div class="leaderboard-content">
+            <div id="wpm" class="leaderboard-table active">
+                <div class="table-header">
+                    <div class="rank">Rank</div>
+                    <div class="player">Player</div>
+                    <div class="score">WPM</div>
+                </div>
+                {% for entry in wpm_leaders %}
+                <div class="table-row {% if entry.username == session['username'] %}highlight{% endif %}">
+                    <div class="rank">
+                        {% if loop.index == 1 %}🥇
+                        {% elif loop.index == 2 %}🥈
+                        {% elif loop.index == 3 %}🥉
+                        {% else %}#{{ loop.index }}
+                        {% endif %}
+                    </div>
+                    <div class="player">{{ entry.username }}</div>
+                    <div class="score">{{ entry.wpm }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Similar structure for accuracy and multiplayer tabs -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-button');
+            const tables = document.querySelectorAll('.leaderboard-table');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tables.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,57 @@
+# requirements.txt
+Flask==2.3.3
+Werkzeug==2.3.7
+python-dateutil==2.8.2
+
+# Setup Instructions (README.md)
+# Speed Typing Game
+
+A feature-rich typing game with multiple game modes, multiplayer support, and achievements.
+
+## Features
+- Multiple game modes (Classic, Time Attack, Word Count)
+- Multiplayer support
+- Custom word lists
+- Achievement system
+- Detailed statistics
+- Practice mode
+- Leaderboards
+
+## Setup Instructions
+
+1. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the application:
+```bash
+python app.py
+```
+
+4. Open browser and go to:
+```
+http://localhost:5000
+```
+
+## Folder Structure
+```
+enhanced_typing_game/
+├── app.py                 # Main Flask application
+├── data/
+│   ├── word_lists.json    # Word lists for different modes
+│   └── achievements.json  # Achievement definitions
+├── static/
+│   ├── css/
+│   │   ├── style.css     # Main styles
+│   │   ├── game.css      # Game-specific styles
+│   │   └── multiplayer.css# Multiplayer styles
+├── templates/            # HTML templates
+└── requirements.txt      # Project dependencies
+```

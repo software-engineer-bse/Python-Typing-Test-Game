@@ -1,0 +1,29 @@
+{
+    "easy": [
+        "the",
+        "be",
+        "to",
+        "of",
+        "and",
+        "that",
+        "have",
+        "for",
+        "not",
+        "with"
+    ],
+    "medium": [
+        "programming",
+        "developer", "application", "software", "database"
+    ],
+    "hard": [
+        "authentication", "implementation", "configuration", "development"
+    ],
+    "custom_lists": {
+        "programming_terms": [
+            "algorithm", "variable", "function", "database", "interface"
+        ],
+        "science_terms": [
+            "hypothesis", "experiment", "theory", "observation", "analysis"
+        ]
+    }
+}

@@ -1,0 +1,60 @@
+!-- templates/multiplayer_lobby.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Lobby - Typing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/multiplayer.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="lobby-container">
+            <header class="lobby-header">
+                <h1>Multiplayer Lobby</h1>
+                <div class="game-info">
+                    <div class="info-badge">Game ID: <span class="highlight">{{ game_id }}</span></div>
+                    <div class="info-badge">Host: <span class="highlight">{{ game.creator }}</span></div>
+                </div>
+            </header>
+
+            <div class="lobby-content">
+                <div class="players-section">
+                    <h2>Players</h2>
+                    <div class="players-list">
+                        {% for player in game.players %}
+                        <div class="player-card {% if player == game.creator %}host{% endif %}">
+                            <span class="player-name">{{ player }}</span>
+                            {% if player == game.creator %}
+                            <span class="host-badge">Host</span>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="lobby-status">
+                    {% if game.state == 'waiting' %}
+                        {% if session.username == game.creator %}
+                            <form action="{{ url_for('start_multiplayer') }}" method="post" class="host-controls">
+                                <input type="hidden" name="game_id" value="{{ game_id }}">
+                                <button type="submit" class="start-button">Start Game</button>
+                            </form>
+                        {% else %}
+                            <div class="waiting-message">
+                                <div class="spinner"></div>
+                                <p>Waiting for host to start the game...</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="lobby-footer">
+                <a href="{{ url_for('game_modes') }}" class="leave-button">Leave Lobby</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

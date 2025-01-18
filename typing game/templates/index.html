@@ -1,0 +1,85 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Typing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="game-title">
+                <h1>Speed Typing</h1>
+                <div class="typing-animation">
+                    <span class="letter">G</span>
+                    <span class="letter">a</span>
+                    <span class="letter">m</span>
+                    <span class="letter">e</span>
+                </div>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="auth-tabs">
+                <button class="tab-button active" data-tab="login">Login</button>
+                <button class="tab-button" data-tab="register">Register</button>
+            </div>
+
+            <div class="auth-forms">
+                <form id="login-form" action="{{ url_for('login') }}" method="post" class="auth-form active">
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Username" required>
+                        <span class="input-icon">👤</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <span class="input-icon">🔒</span>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                </form>
+
+                <form id="register-form" action="{{ url_for('register') }}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Choose Username" required>
+                        <span class="input-icon">👤</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Choose Password" required>
+                        <span class="input-icon">🔒</span>
+                    </div>
+                    <button type="submit" class="submit-button">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const forms = document.querySelectorAll('.auth-form');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and forms
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    forms.forEach(form => form.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding form
+                    button.classList.add('active');
+                    const formId = `${button.dataset.tab}-form`;
+                    document.getElementById(formId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!-- templates/game_over.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over - Speed Typing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game-over.css') }}">
+</head>
+<body>
+    <div class="game-over-container">
+        <div class="result-card">
+            <h1 class="result-header">Game Over!</h1>
+            
+            <div class="performance-summary">
+                <div class="summary-item">
+                    <div class="summary-icon">⚡</div>
+                    <div class="summary-info">
+                        <div class="summary-value">{{ wpm }}</div>
+                        <div class="summary-label">Words Per Minute</div>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-icon">🎯</div>
+                    <div class="summary-info">
+                        <div class="summary-value">{{ accuracy }}%</div>
+                        <div class="summary-label">Accuracy</div>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-icon">✅</div>
+                    <div class="summary-info">
+                        <div class="summary-value">{{ correct_words }}</div>
+                        <div class="summary-label">Correct Words</div>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-icon">❌</div>
+                    <div class="summary-info">
+                        <div class="summary-value">{{ wrong_words }}</div>
+                        <div class="summary-label">Wrong Words</div>
+                    </div>
+                </div>
+            </div>
+
+            {% if new_achievements %}
+            <div class="achievements-earned">
+                <h2>New Achievements!</h2>
+                <div class="achievements-list">
+                    {% for achievement in new_achievements %}
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🏆</div>
+                        <div class="achievement-name">{{ achievement }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="{{ url_for('game', mode=mode) }}" class="action-button retry">
+                    <span class="button-icon">🔄</span>
+                    Play Again
+                </a>
+                <a href="{{ url_for('game_modes') }}" class="action-button menu">
+                    <span class="button-icon">🏠</span>
+                    Main Menu
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

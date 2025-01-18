@@ -1,0 +1,38 @@
+{
+    "speed_achievements": [
+        {
+            "name": "Speed Demon",
+            "description": "Reach 100 WPM",
+            "threshold": 100
+        },
+        {
+            "name": "Lightning Fingers",
+            "description": "Reach 120 WPM",
+            "threshold": 120
+        }
+    ],
+    "accuracy_achievements": [
+        {
+            "name": "Perfect Game",
+            "description": "Complete a game with 100% accuracy",
+            "threshold": 100
+        },
+        {
+            "name": "Sharpshooter",
+            "description": "Complete 5 games with 95%+ accuracy",
+            "threshold": 5
+        }
+    ],
+    "multiplayer_achievements": [
+        {
+            "name": "Multiplayer Master",
+            "description": "Win 10 multiplayer games",
+            "threshold": 10
+        },
+        {
+            "name": "Social Typer",
+            "description": "Play 50 multiplayer games",
+            "threshold": 50
+        }
+    ]
+}

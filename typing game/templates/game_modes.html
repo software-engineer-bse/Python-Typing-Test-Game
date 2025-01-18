@@ -1,0 +1,90 @@
+!-- templates/game_modes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Modes - Typing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="game-header">
+            <h1>Choose Game Mode</h1>
+            <div class="user-info">
+                <span class="username">Welcome, {{ session['username'] }}!</span>
+                <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+            </div>
+        </header>
+
+        <div class="modes-container">
+            <section class="mode-section single-player">
+                <h2 class="section-title">Single Player Modes</h2>
+                <div class="mode-grid">
+                    <div class="mode-card classic">
+                        <div class="mode-icon">⏱️</div>
+                        <h3>Classic Mode</h3>
+                        <p>Type words against time. Complete as many words as you can in 60 seconds.</p>
+                        <a href="{{ url_for('game', mode='classic') }}" class="play-button">Play Classic</a>
+                    </div>
+
+                    <div class="mode-card time-attack">
+                        <div class="mode-icon">⚡</div>
+                        <h3>Time Attack</h3>
+                        <p>Race against decreasing time. Each correct word adds time to the clock.</p>
+                        <a href="{{ url_for('game', mode='time_attack') }}" class="play-button">Play Time Attack</a>
+                    </div>
+
+                    <div class="mode-card word-count" style="display: none;">
+                        <div class="mode-icon">📝</div>
+                        <h3>Word Count Challenge</h3>
+                        <p>Complete 50 words as fast as possible. Best completion time wins!</p>
+                        <a href="{{ url_for('game', mode='word_count') }}" class="play-button">Play Word Count</a>
+                    </div>
+
+                    <div class="mode-card practice">
+                        <div class="mode-icon">🎯</div>
+                        <h3>Tired? Try Practice Mode</h3>
+                        <p>Practice typing with custom word lists and no time pressure.</p>
+                        <a href="{{ url_for('practice') }}" class="play-button">Practice</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mode-section multiplayer">
+                <h2 class="section-title">Multiplayer Mode</h2>
+                <div class="multiplayer-container">
+                    <div class="multiplayer-card">
+                        <div class="mode-icon trophy">🏆</div>
+                        <h3>Multiplayer Battle</h3>
+                        <p>Compete against other players in real-time typing battles!</p>
+                        
+                        <div class="multiplayer-controls">
+                            <a href="{{ url_for('create_multiplayer') }}" class="create-game-button">Create Game</a>
+                            
+                            <div class="join-game-section">
+                                <form action="{{ url_for('join_multiplayer') }}" method="post" class="join-form">
+                                    <input type="text" name="game_id" placeholder="Enter Game ID to Join" required>
+                                    <button type="submit" class="join-button">Join Game</button>
+                                </form>
+                            </div>
+
+                            <div class="multiplayer-nav">
+                                <a href="{{ url_for('leaderboards_view') }}" class="nav-button leaderboard-button">
+                                    <span class="nav-icon">🏅</span>
+                                    Leaderboards
+                                </a>
+                                <a href="{{ url_for('stats') }}" class="nav-button stats-button">
+                                    <span class="nav-icon">📊</span>
+                                    My Stats
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

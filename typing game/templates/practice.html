@@ -1,0 +1,53 @@
+<!-- templates/practice.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Mode - Typing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="game-header">
+            <h1>Practice Mode</h1>
+            <nav class="practice-nav">
+                <a href="{{ url_for('game_modes') }}" class="button">Back to Modes</a>
+                <a href="{{ url_for('logout') }}" class="button">Logout</a>
+            </nav>
+        </header>
+
+        <div class="word-list-selector">
+            <h2>Choose Word List</h2>
+            <form action="{{ url_for('start_practice') }}" method="post">
+                <select name="word_list" required>
+                    <option value="easy">Easy Words</option>
+                    <option value="medium">Medium Words</option>
+                    <option value="hard">Hard Words</option>
+                    <optgroup label="Custom Lists">
+                        {% for list_name in word_lists.custom_lists %}
+                        <option value="custom_{{ list_name }}">{{ list_name|replace('_', ' ')|title }}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+                <button type="submit">Start Practice</button>
+            </form>
+        </div>
+
+        {% if practice_active %}
+        <div class="practice-area">
+            <div class="word-display">{{ current_word }}</div>
+            <form action="{{ url_for('submit_practice_word') }}" method="post" class="typing-form">
+                <input type="text" name="typed_word" autocomplete="off" autofocus required>
+                <button type="submit">Submit</button>
+            </form>
+            <div class="practice-stats">
+                <div>Words Completed: {{ words_completed }}</div>
+                <div>Accuracy: {{ accuracy }}%</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

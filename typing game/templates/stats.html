@@ -1,0 +1,119 @@
+<!-- templates/stats.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Statistics - Speed Typing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stats.css') }}">
+</head>
+<body>
+    <div class="stats-container">
+        <header class="stats-header">
+            <h1>Your Statistics</h1>
+            <div class="user-info">
+                <span class="username">{{ session['username'] }}</span>
+                <a href="{{ url_for('game_modes') }}" class="nav-button">Back to Game</a>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card overall">
+                <h2>Overall Performance</h2>
+                <div class="stat-content">
+                    <div class="stat-item">
+                        <div class="stat-icon">🎮</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.games_played }}</div>
+                            <div class="stat-label">Games Played</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.total_words }}</div>
+                            <div class="stat-label">Total Words</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.correct_words }}</div>
+                            <div class="stat-label">Correct Words</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ (stats.correct_words / stats.total_words * 100)|round(1) if stats.total_words > 0 else 0 }}%</div>
+                            <div class="stat-label">Average Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card personal-bests">
+                <h2>Personal Bests</h2>
+                <div class="stat-content">
+                    <div class="stat-item">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.max_wpm }}</div>
+                            <div class="stat-label">Best WPM</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.max_accuracy }}%</div>
+                            <div class="stat-label">Best Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card multiplayer">
+                <h2>Multiplayer Stats</h2>
+                <div class="stat-content">
+                    <div class="stat-item">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.multiplayer_wins }}</div>
+                            <div class="stat-label">Wins</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🎮</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ stats.multiplayer_games }}</div>
+                            <div class="stat-label">Games Played</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <div class="stat-value">{{ (stats.multiplayer_wins / stats.multiplayer_games * 100)|round(1) if stats.multiplayer_games > 0 else 0 }}%</div>
+                            <div class="stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card achievements">
+                <h2>Achievements</h2>
+                <div class="achievements-grid">
+                    {% for achievement in achievements %}
+                    <div class="achievement-item">
+                        <div class="achievement-icon">🏆</div>
+                        <div class="achievement-info">
+                            <div class="achievement-name">{{ achievement }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
